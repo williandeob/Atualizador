@@ -16,8 +16,28 @@ public class App
         try {
 			UtilDirectory.criarDiretorioDeConfiguracaoDoSistema();
 			Configuracao configuracao = Configuracao.getInstancia();
+			if(validarDadosDeConfiguracao()){
+				iniciarServico();
+			}else{
+				iniciarConfiguracao();
+			}	
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }
+    
+    private static boolean validarDadosDeConfiguracao(){
+    	return true;
+    }
+    
+    private static void iniciarServico(){
+    	
+    }
+    
+	private static void iniciarConfiguracao(){
+    	
+    }
+	
+
 }

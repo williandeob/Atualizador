@@ -26,14 +26,19 @@ public class Configuracao {
 				is = new FileInputStream(arquivoDeConfiguracao);
 				isr = new InputStreamReader(is);
 				br = new BufferedReader(isr);
-				String conteudo = br.readLine();
-				while (conteudo != null) {
-					conteudo+=br.readLine();
+				StringBuilder conteudo = new StringBuilder();
+				String linha = br.readLine();
+				while (linha != null) {
+					conteudo.append(linha);
+					linha = br.readLine();
 				}
-
-				Gson gson = new Gson();
 				
-
+				Gson gson = new Gson();
+				ConfiguracaoConteudo configuracaoDoArquivo = gson.fromJson(conteudo.toString(), ConfiguracaoConteudo.class);
+				setHabilitadoSqlServer(configuracaoDoArquivo.isHabilitadoSqlServer());
+				setHabilitadoPostgreSql(configuracaoDoArquivo.isHabilitadoPostgreSql());
+				setPathSqlServer(configuracaoDoArquivo.getPathSqlServer());
+				setPathPostgreSql(configuracaoDoArquivo.getPathPostgreSql());
 
 			}finally{
 				if(br != null){
@@ -81,5 +86,27 @@ public class Configuracao {
 		this.pathPostgreSql = pathPostgreSql;
 	}
 	
-	
+	private class ConfiguracaoConteudo{
+		public boolean habilitadoSqlServer, habilitadoPostgreSql;
+		public String pathSqlServer, pathPostgreSql;
+		public ConfiguracaoConteudo(boolean habilitadoSqlServer, boolean habilitadoPostgreSql, String pathSqlServer, String pathPostgreSql) {
+			super();
+			this.habilitadoSqlServer = habilitadoSqlServer;
+			this.habilitadoPostgreSql = habilitadoPostgreSql;
+			this.pathSqlServer = pathSqlServer;
+			this.pathPostgreSql = pathPostgreSql;
+		}
+		public boolean isHabilitadoSqlServer() {
+			return habilitadoSqlServer;
+		}
+		public boolean isHabilitadoPostgreSql() {
+			return habilitadoPostgreSql;
+		}
+		public String getPathSqlServer() {
+			return pathSqlServer;
+		}
+		public String getPathPostgreSql() {
+			return pathPostgreSql;
+		} 
+	}
 }
