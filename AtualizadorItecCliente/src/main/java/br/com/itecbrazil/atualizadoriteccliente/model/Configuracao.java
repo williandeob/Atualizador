@@ -15,6 +15,8 @@ public class Configuracao {
 	private static Configuracao configuracao;
 	private boolean habilitadoSqlServer, habilitadoPostgreSql;
 	private String pathSqlServer, pathPostgreSql;
+	private String sqlUser, postgreUser;
+	private String sqlSenha, postgreSenha;
 	
 	private Configuracao () throws IOException{
 		File arquivoDeConfiguracao = UtilDirectory.getFileConfiguracao();
@@ -39,6 +41,10 @@ public class Configuracao {
 				setHabilitadoPostgreSql(configuracaoDoArquivo.isHabilitadoPostgreSql());
 				setPathSqlServer(configuracaoDoArquivo.getPathSqlServer());
 				setPathPostgreSql(configuracaoDoArquivo.getPathPostgreSql());
+				setSqlUser(configuracaoDoArquivo.getSqlUser());
+				setPostgreUser(configuracaoDoArquivo.getPostgreUser());
+				setSqlSenha(configuracaoDoArquivo.getSqlSenha());
+				setPostgreSenha(configuracaoDoArquivo.getPostgreSenha());
 
 			}finally{
 				if(br != null){
@@ -50,6 +56,10 @@ public class Configuracao {
 			setHabilitadoPostgreSql(false);
 			setPathSqlServer("");
 			setPathPostgreSql("");
+			setSqlUser("");
+			setPostgreUser("");
+			setSqlSenha("");
+			setPostgreSenha("");
 		}
 	};
 	
@@ -85,16 +95,50 @@ public class Configuracao {
 	private void setPathPostgreSql(String pathPostgreSql) {
 		this.pathPostgreSql = pathPostgreSql;
 	}
-	
+	public String getSqlUser() {
+		return sqlUser;
+	}
+	private void setSqlUser(String sqlUser) {
+		this.sqlUser = sqlUser;
+	}
+	public String getPostgreUser() {
+		return postgreUser;
+	}
+	private void setPostgreUser(String postgreUser) {
+		this.postgreUser = postgreUser;
+	}
+	public String getSqlSenha() {
+		return sqlSenha;
+	}
+	private void setSqlSenha(String sqlSenha) {
+		this.sqlSenha = sqlSenha;
+	}
+	public String getPostgreSenha() {
+		return postgreSenha;
+	}
+	private void setPostgreSenha(String postgreSenha) {
+		this.postgreSenha = postgreSenha;
+	}
+
+
 	private class ConfiguracaoConteudo{
 		public boolean habilitadoSqlServer, habilitadoPostgreSql;
 		public String pathSqlServer, pathPostgreSql;
-		public ConfiguracaoConteudo(boolean habilitadoSqlServer, boolean habilitadoPostgreSql, String pathSqlServer, String pathPostgreSql) {
+		private String sqlUser, postgreUser;
+		private String sqlSenha, postgreSenha;
+		
+		@SuppressWarnings("unused")
+		public ConfiguracaoConteudo(boolean habilitadoSqlServer, boolean habilitadoPostgreSql, String pathSqlServer, String pathPostgreSql,
+				String sqlUser, String postgreUser, String sqlSenha, String postgreSenha) {
 			super();
 			this.habilitadoSqlServer = habilitadoSqlServer;
 			this.habilitadoPostgreSql = habilitadoPostgreSql;
 			this.pathSqlServer = pathSqlServer;
 			this.pathPostgreSql = pathPostgreSql;
+			this.sqlUser = sqlUser;
+			this.postgreUser = postgreUser;
+			this.sqlSenha = sqlSenha;
+			this.postgreSenha = postgreSenha;
 		}
 		public boolean isHabilitadoSqlServer() {
 			return habilitadoSqlServer;
@@ -107,6 +151,18 @@ public class Configuracao {
 		}
 		public String getPathPostgreSql() {
 			return pathPostgreSql;
-		} 
+		}
+		public String getSqlUser() {
+			return sqlUser;
+		}
+		public String getPostgreUser() {
+			return postgreUser;
+		}
+		public String getSqlSenha() {
+			return sqlSenha;
+		}
+		public String getPostgreSenha() {
+			return postgreSenha;
+		}
 	}
 }

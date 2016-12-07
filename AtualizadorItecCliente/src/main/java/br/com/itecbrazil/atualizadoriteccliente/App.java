@@ -1,8 +1,10 @@
 package br.com.itecbrazil.atualizadoriteccliente;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import br.com.itecbrazil.atualizadoriteccliente.model.Configuracao;
+import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilDirectory;
 
 /**
@@ -14,22 +16,19 @@ public class App
     public static void main( String[] args )
     {
         try {
+        	
 			UtilDirectory.criarDiretorioDeConfiguracaoDoSistema();
 			Configuracao configuracao = Configuracao.getInstancia();
-			if(validarDadosDeConfiguracao()){
-				iniciarServico();
-			}else{
-				iniciarConfiguracao();
-			}	
-
+			UtilBancoDeDados.validarDadosDeConfiguracao(configuracao);
+			iniciarServico();
+	
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch( SQLException e){
+			iniciarConfiguracao();
 		}
     }
-    
-    private static boolean validarDadosDeConfiguracao(){
-    	return true;
-    }
+   
     
     private static void iniciarServico(){
     	
