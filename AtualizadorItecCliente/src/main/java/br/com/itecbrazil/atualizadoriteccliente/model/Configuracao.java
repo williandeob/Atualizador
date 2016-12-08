@@ -123,23 +123,10 @@ public class Configuracao {
 
 	private class ConfiguracaoConteudo{
 		public boolean habilitadoSqlServer, habilitadoPostgreSql;
-		public String pathSqlServer, pathPostgreSql;
-		private String sqlUser, postgreUser;
-		private String sqlSenha, postgreSenha;
+		public String pathSqlServer = "", pathPostgreSql = "";
+		private String sqlUser = "", postgreUser = "";
+		private String sqlSenha = "", postgreSenha = "";
 		
-		@SuppressWarnings("unused")
-		public ConfiguracaoConteudo(boolean habilitadoSqlServer, boolean habilitadoPostgreSql, String pathSqlServer, String pathPostgreSql,
-				String sqlUser, String postgreUser, String sqlSenha, String postgreSenha) {
-			super();
-			this.habilitadoSqlServer = habilitadoSqlServer;
-			this.habilitadoPostgreSql = habilitadoPostgreSql;
-			this.pathSqlServer = pathSqlServer;
-			this.pathPostgreSql = pathPostgreSql;
-			this.sqlUser = sqlUser;
-			this.postgreUser = postgreUser;
-			this.sqlSenha = sqlSenha;
-			this.postgreSenha = postgreSenha;
-		}
 		public boolean isHabilitadoSqlServer() {
 			return habilitadoSqlServer;
 		}
