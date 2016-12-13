@@ -23,11 +23,12 @@ public class App
 			iniciarServico();
 	
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Diretório de configuração não pode ser criado ou não há permissao de leitura ou escrita!");
+		}catch( SQLException e){
 			e.printStackTrace();
-		}catch( SQLException e){	
 			iniciarConfiguracao();
-			e.printStackTrace();
+			
 		}
     }
    
