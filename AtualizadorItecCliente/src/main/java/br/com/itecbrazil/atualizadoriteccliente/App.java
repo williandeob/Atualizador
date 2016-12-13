@@ -2,8 +2,12 @@ package br.com.itecbrazil.atualizadoriteccliente;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import br.com.itecbrazil.atualizadoriteccliente.model.Configuracao;
+import br.com.itecbrazil.atualizadoriteccliente.model.ThreadAtualizadorDeArquivosDoWebService;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilDirectory;
 
@@ -35,6 +39,9 @@ public class App
     
     private static void iniciarServico(){
     	System.out.println("Iniciou Servico");
+    	ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+    	Runnable thread = new ThreadAtualizadorDeArquivosDoWebService();
+    	service.scheduleAtFixedRate(new Thread(thread), 10, 10, TimeUnit.SECONDS);
     }
     
 	private static void iniciarConfiguracao(){

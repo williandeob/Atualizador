@@ -1,0 +1,10 @@
+{
+	"habilitadoSqlServer" : true,
+	"habilitadoPostgreSql" : true,
+	"pathSqlServer" : "10.172.192.9:1433;databaseName=Itec_QA",
+	"pathPostgreSql" : "10.172.192.160:5432/pdv",
+	"sqlUser" : "sis_itec.gestao",
+	"postgreUser" : "postgres",
+	"sqlSenha" : "itec@261002",
+	"postgreSenha" : "261002"
+}
