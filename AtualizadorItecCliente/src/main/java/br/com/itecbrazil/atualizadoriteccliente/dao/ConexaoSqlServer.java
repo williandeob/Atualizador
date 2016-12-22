@@ -11,9 +11,9 @@ public class ConexaoSqlServer implements IConexao{
 	private Connection conexao;
 	private Configuracao configuracao;
 	
-	public ConexaoSqlServer() throws IOException, SQLException {
+	public ConexaoSqlServer(Configuracao configuracao) throws IOException, SQLException {
 		super();
-		configuracao = Configuracao.getInstancia();
+		this.configuracao = configuracao;
 		buildConexao();
 	}
 	

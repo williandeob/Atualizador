@@ -16,12 +16,12 @@ public class UtilBancoDeDados {
 		 	}
 
 		 	if(configuracao.isHabilitadoSqlServer()){
-		    	IConexao testeConexaoSql = new ConexaoSqlServer();
+		    	IConexao testeConexaoSql = new ConexaoSqlServer(configuracao);
 		    	testeConexaoSql.desconectar();
 		 	}
 		 	
 	    	if(configuracao.isHabilitadoPostgreSql()){
-	    		IConexao testeConexaoPostgre = new ConexaoPostgreSql();
+	    		IConexao testeConexaoPostgre = new ConexaoPostgreSql(configuracao);
 	    		testeConexaoPostgre.desconectar();
 		 	}
 	    	

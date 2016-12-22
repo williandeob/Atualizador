@@ -10,6 +10,7 @@ import br.com.itecbrazil.atualizadoriteccliente.model.Configuracao;
 import br.com.itecbrazil.atualizadoriteccliente.model.ThreadAtualizadorDeArquivosDoWebService;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilDirectory;
+import br.com.itecbrazil.atualizadoriteccliente.view.TelaDeConfiguracaoBancoDeDados;
 
 /**
  * @author willian batista
@@ -19,10 +20,11 @@ public class App
 {
     public static void main( String[] args )
     {
+    	Configuracao configuracao = null;
         try {
         	
 			UtilDirectory.criarDiretorioDeConfiguracaoDoSistema();
-			Configuracao configuracao = Configuracao.getInstancia();
+			configuracao = Configuracao.getInstancia();
 			UtilBancoDeDados.validarDadosDeConfiguracao(configuracao);
 			iniciarServico();
 	
@@ -31,8 +33,8 @@ public class App
 			System.out.println("Diretório de configuração não pode ser criado ou não há permissao de leitura ou escrita!");
 		}catch( SQLException e){
 			e.printStackTrace();
-			iniciarConfiguracao();
-			
+			System.out.println("Banco não configurado corretamente!");
+			iniciarConfiguracao(configuracao);
 		}
     }
    
@@ -44,8 +46,10 @@ public class App
     	service.scheduleAtFixedRate(new Thread(thread), 10, 10, TimeUnit.SECONDS);
     }
     
-	private static void iniciarConfiguracao(){
+	private static void iniciarConfiguracao(Configuracao configuracao){
     	System.out.println("Iniciou Tela de Configuração");
+    	TelaDeConfiguracaoBancoDeDados telaDeConfiguracao = new TelaDeConfiguracaoBancoDeDados(configuracao);
+    	telaDeConfiguracao.setVisible(true);
     }
 	
 

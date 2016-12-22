@@ -11,9 +11,9 @@ public class ConexaoPostgreSql implements IConexao{
 	private Connection conexao;
 	private Configuracao configuracao;
 	
-	public ConexaoPostgreSql() throws IOException, SQLException {
+	public ConexaoPostgreSql(Configuracao configuracao) throws IOException, SQLException {
 		super();
-		configuracao = Configuracao.getInstancia();
+		this.configuracao = configuracao;
 		buildConexao();
 	}
 	
@@ -27,14 +27,12 @@ public class ConexaoPostgreSql implements IConexao{
 	
 	@Override
 	public Connection getConexao() {
-		// TODO Auto-generated method stub
-		return null;
+		return conexao;
 	}
 
 	@Override
 	public void desconectar() throws SQLException {
-		// TODO Auto-generated method stub
-		
+		conexao.close();
 	}
 
 }
