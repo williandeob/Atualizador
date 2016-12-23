@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,8 +52,10 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 	private ButtonGroup sqlServerHabilitado;
 	private ButtonGroup postgreSqlHabilitado;
 	private Configuracao configuracao;
+	private TelaDeConfiguracaoBancoDeDados tela;
 	
 	public TelaDeConfiguracaoBancoDeDados(Configuracao configuracao){
+		this.tela = this;
 		this.configuracao = configuracao;
 		buildView();
 		criarGrupoRadioButton();
@@ -323,11 +324,13 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 					setVisible(false);
 	                dispose();
 				} catch(SQLException e){
-					System.out.println("Informações de conexão ao banco de dados inválidos");
 					e.printStackTrace();
+					PopupDialog popup = new PopupDialog("FALHA OPERACIONAL", "Informações de conexão ao banco de dados inválidos");
+					popup.show(tela);
 				} catch (IOException e) {
-					System.out.println("Ocorreu um erro ao gravar as novas configuracoes do banco");
 					e.printStackTrace();
+					PopupDialog popup = new PopupDialog("FALHA OPERACIONAL", "Ocorreu um erro ao gravar as novas configuracoes do banco");
+					popup.show(tela);
 				}
             }
         });

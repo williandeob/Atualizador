@@ -12,6 +12,7 @@ import br.com.itecbrazil.atualizadoriteccliente.model.ThreadAtualizadorDeArquivo
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilDirectory;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilSocket;
+import br.com.itecbrazil.atualizadoriteccliente.view.PopupDialog;
 import br.com.itecbrazil.atualizadoriteccliente.view.TelaDeConfiguracaoBancoDeDados;
 
 /**
@@ -35,10 +36,12 @@ public class App
 	
         }catch( SocketException e){
         	e.printStackTrace();
-			System.out.println("Verificar se já existe uma instância do programa em execução, porta 9999!");
+        	PopupDialog popup = new PopupDialog("FALHA OPERACIONAL", "Verificar se já existe uma instância do programa em execução, porta 9999");
+			popup.show(null);
 		} catch( IOException e ) {
 			e.printStackTrace();
-			System.out.println("Diretório de configuração não pode ser criado ou não há permissao de leitura ou escrita!");
+			PopupDialog popup = new PopupDialog("FALHA OPERACIONAL", "Diretório de configuração não pode ser criado ou não há permissao de leitura ou escrita");
+			popup.show(null);
 		} catch( SQLException e ){ //validarDadosDeConfiguracao()
 			e.printStackTrace();
 			System.out.println("Banco não configurado corretamente!");
