@@ -1,10 +1,20 @@
 package br.com.itecbrazil.atualizadoriteccliente.model;
 
-public class ThreadAtualizadorDeArquivosDoWebService implements Runnable{
+import java.io.IOException;
 
+public class ThreadAtualizadorDeArquivosDoWebService implements Runnable{
+	
+	private Configuracao configuracao;
+	
 	@Override
 	public void run() {
-		System.out.println("thread executada...");
+		try {
+			System.out.println("thread executada...");
+			configuracao = Configuracao.getInstancia();
+		} catch (IOException e) {
+			System.out.println("Thread parou pois não foi possivel recuperas as informações de configuração");
+			e.printStackTrace();
+		}
 	}
 
 }

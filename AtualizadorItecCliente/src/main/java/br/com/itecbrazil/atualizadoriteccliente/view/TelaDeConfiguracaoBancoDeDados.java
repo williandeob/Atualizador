@@ -3,8 +3,11 @@ package br.com.itecbrazil.atualizadoriteccliente.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,7 +16,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import br.com.itecbrazil.atualizadoriteccliente.App;
+import br.com.itecbrazil.atualizadoriteccliente.dao.ConfiguracaoDao;
 import br.com.itecbrazil.atualizadoriteccliente.model.Configuracao;
+import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 
 public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 
@@ -308,16 +314,54 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		
 		this.buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               
+            	App.pararServico();
+            	salvar();
+            	try {
+            		UtilBancoDeDados.validarDadosDeConfiguracao(configuracao);
+					gravar();
+					App.iniciarServico();
+					setVisible(false);
+	                dispose();
+				} catch(SQLException e){
+					System.out.println("Informações de conexão ao banco de dados inválidos");
+					e.printStackTrace();
+				} catch (IOException e) {
+					System.out.println("Ocorreu um erro ao gravar as novas configuracoes do banco");
+					e.printStackTrace();
+				}
             }
         });
 		
 		this.buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               
+            	 setVisible(false);
+                 dispose();
             }
         });
+	}
+	
+	private void salvar(){
+		configuracao.setHabilitadoSqlServer(false);
+		configuracao.setHabilitadoPostgreSql(false);
+		
+		if(radioUsaSqlServerSim.isSelected())
+			configuracao.setHabilitadoSqlServer(true);
+		
+		if(radioUsaPostgreSqlSim.isSelected())
+			configuracao.setHabilitadoPostgreSql(true);
+			
+		configuracao.setPathSqlServer(inputEnderecoSqlServer.getText().trim());
+        configuracao.setSqlUser(inputUsuarioSqlServer.getText().trim());
+        configuracao.setSqlSenha(inputSenhaSqlServer.getText().trim());
+        
+        configuracao.setPathPostgreSql(inputEnderecoPostgreSql.getText().trim());
+        configuracao.setPostgreUser(inputUsuarioPostgreSql.getText().trim());
+        configuracao.setPostgreSenha(inputSenhaPostgreSql.getText().trim());
+	}
 
+	private void gravar() throws IOException {
+		ConfiguracaoDao configuracaoDao = new ConfiguracaoDao();
+		configuracaoDao.save(configuracao);
 	}
 
 }

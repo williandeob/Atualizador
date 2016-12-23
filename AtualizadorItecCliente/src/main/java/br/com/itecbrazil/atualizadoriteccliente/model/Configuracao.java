@@ -80,7 +80,7 @@ public class Configuracao {
 	public boolean isHabilitadoPostgreSql() {
 		return habilitadoPostgreSql;
 	}
-	private void setHabilitadoPostgreSql(boolean habilitadoPostgreSql) {
+	public void setHabilitadoPostgreSql(boolean habilitadoPostgreSql) {
 		this.habilitadoPostgreSql = habilitadoPostgreSql;
 	}
 	public String getPathSqlServer() {

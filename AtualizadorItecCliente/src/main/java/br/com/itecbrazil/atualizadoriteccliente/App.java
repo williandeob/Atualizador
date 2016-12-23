@@ -1,6 +1,7 @@
 package br.com.itecbrazil.atualizadoriteccliente;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,6 +11,7 @@ import br.com.itecbrazil.atualizadoriteccliente.model.Configuracao;
 import br.com.itecbrazil.atualizadoriteccliente.model.ThreadAtualizadorDeArquivosDoWebService;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilBancoDeDados;
 import br.com.itecbrazil.atualizadoriteccliente.util.UtilDirectory;
+import br.com.itecbrazil.atualizadoriteccliente.util.UtilSocket;
 import br.com.itecbrazil.atualizadoriteccliente.view.TelaDeConfiguracaoBancoDeDados;
 
 /**
@@ -18,20 +20,26 @@ import br.com.itecbrazil.atualizadoriteccliente.view.TelaDeConfiguracaoBancoDeDa
  */
 public class App 
 {
-    public static void main( String[] args )
+    private static ScheduledExecutorService service;
+
+	public static void main( String[] args )
     {
     	Configuracao configuracao = null;
+
         try {
-        	
+        	UtilSocket.verificarInstaciaEmExecucao();
 			UtilDirectory.criarDiretorioDeConfiguracaoDoSistema();
 			configuracao = Configuracao.getInstancia();
 			UtilBancoDeDados.validarDadosDeConfiguracao(configuracao);
 			iniciarServico();
 	
-		} catch (IOException e) {
+        }catch( SocketException e){
+        	e.printStackTrace();
+			System.out.println("Verificar se já existe uma instância do programa em execução, porta 9999!");
+		} catch( IOException e ) {
 			e.printStackTrace();
 			System.out.println("Diretório de configuração não pode ser criado ou não há permissao de leitura ou escrita!");
-		}catch( SQLException e){
+		} catch( SQLException e ){ //validarDadosDeConfiguracao()
 			e.printStackTrace();
 			System.out.println("Banco não configurado corretamente!");
 			iniciarConfiguracao(configuracao);
@@ -39,18 +47,23 @@ public class App
     }
    
     
-    private static void iniciarServico(){
+    public static void iniciarServico(){
     	System.out.println("Iniciou Servico");
-    	ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+    	service = Executors.newScheduledThreadPool(1);
     	Runnable thread = new ThreadAtualizadorDeArquivosDoWebService();
     	service.scheduleAtFixedRate(new Thread(thread), 10, 10, TimeUnit.SECONDS);
     }
-    
+	
+	public static void pararServico(){
+		System.out.println("Parar Servico");
+		if(service != null)
+			service.shutdown();
+	}
+	
 	private static void iniciarConfiguracao(Configuracao configuracao){
     	System.out.println("Iniciou Tela de Configuração");
     	TelaDeConfiguracaoBancoDeDados telaDeConfiguracao = new TelaDeConfiguracaoBancoDeDados(configuracao);
     	telaDeConfiguracao.setVisible(true);
     }
-	
 
 }
