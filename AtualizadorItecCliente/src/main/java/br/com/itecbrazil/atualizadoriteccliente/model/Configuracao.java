@@ -74,7 +74,7 @@ public class Configuracao {
 	public boolean isHabilitadoSqlServer() {
 		return habilitadoSqlServer;
 	}
-	private void setHabilitadoSqlServer(boolean habilitadoSqlServer) {
+	public void setHabilitadoSqlServer(boolean habilitadoSqlServer) {
 		this.habilitadoSqlServer = habilitadoSqlServer;
 	}
 	public boolean isHabilitadoPostgreSql() {
@@ -86,37 +86,37 @@ public class Configuracao {
 	public String getPathSqlServer() {
 		return pathSqlServer;
 	}
-	private void setPathSqlServer(String pathSqlServer) {
+	public void setPathSqlServer(String pathSqlServer) {
 		this.pathSqlServer = pathSqlServer;
 	}
 	public String getPathPostgreSql() {
 		return pathPostgreSql;
 	}
-	private void setPathPostgreSql(String pathPostgreSql) {
+	public void setPathPostgreSql(String pathPostgreSql) {
 		this.pathPostgreSql = pathPostgreSql;
 	}
 	public String getSqlUser() {
 		return sqlUser;
 	}
-	private void setSqlUser(String sqlUser) {
+	public void setSqlUser(String sqlUser) {
 		this.sqlUser = sqlUser;
 	}
 	public String getPostgreUser() {
 		return postgreUser;
 	}
-	private void setPostgreUser(String postgreUser) {
+	public void setPostgreUser(String postgreUser) {
 		this.postgreUser = postgreUser;
 	}
 	public String getSqlSenha() {
 		return sqlSenha;
 	}
-	private void setSqlSenha(String sqlSenha) {
+	public void setSqlSenha(String sqlSenha) {
 		this.sqlSenha = sqlSenha;
 	}
 	public String getPostgreSenha() {
 		return postgreSenha;
 	}
-	private void setPostgreSenha(String postgreSenha) {
+	public void setPostgreSenha(String postgreSenha) {
 		this.postgreSenha = postgreSenha;
 	}
 

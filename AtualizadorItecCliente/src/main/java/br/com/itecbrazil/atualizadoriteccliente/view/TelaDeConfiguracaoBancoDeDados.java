@@ -1,6 +1,7 @@
 package br.com.itecbrazil.atualizadoriteccliente.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.ButtonGroup;
@@ -51,14 +52,18 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		this.configuracao = configuracao;
 		buildView();
 		criarGrupoRadioButton();
+		bindEvent();
 		popularView();
 	}
 
 	private void popularView() {
 		if(this.configuracao.isHabilitadoSqlServer()){
 			this.radioUsaSqlServerSim.setSelected(true);
-		}else{
+			habilitarInputs("sql");
+		}
+		if(this.configuracao.isHabilitadoPostgreSql()){
 			this.radioUsaSqlServerNao.setSelected(true);
+			habilitarInputs("postgre");
 		}
 		
 		this.inputEnderecoSqlServer.setText(this.configuracao.getPathSqlServer());
@@ -68,6 +73,30 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		this.inputEnderecoPostgreSql.setText(this.configuracao.getPathPostgreSql());
 		this.inputUsuarioPostgreSql.setText(this.configuracao.getPostgreUser());
 		this.inputSenhaPostgreSql.setText(this.configuracao.getPostgreSenha());
+	}
+	
+	private void habilitarInputs(String banco){
+		if("sql".equals(banco)){
+			this.inputEnderecoSqlServer.setEnabled(true);
+			this.inputUsuarioSqlServer.setEnabled(true);
+			this.inputSenhaSqlServer.setEnabled(true);
+		}else{
+			this.inputEnderecoPostgreSql.setEnabled(true);
+			this.inputUsuarioPostgreSql.setEnabled(true);
+			this.inputSenhaPostgreSql.setEnabled(true);
+		}
+	}
+	
+	private void desabilitarInputs(String banco){
+		if("sql".equals(banco)){
+			this.inputEnderecoSqlServer.setEnabled(false);
+			this.inputUsuarioSqlServer.setEnabled(false);
+			this.inputSenhaSqlServer.setEnabled(false);
+		}else{
+			this.inputEnderecoPostgreSql.setEnabled(false);
+			this.inputUsuarioPostgreSql.setEnabled(false);
+			this.inputSenhaPostgreSql.setEnabled(false);
+		}
 	}
 
 	private void criarGrupoRadioButton() {
@@ -129,6 +158,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputEnderecoSqlServer.setLocation((int)labelEnderecoSqlServer.getLocation().getX(), (int)labelEnderecoSqlServer.getLocation().getY()+labelEnderecoSqlServer.getHeight());
 		inputEnderecoSqlServer.setSize(390, 30);
 		inputEnderecoSqlServer.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputEnderecoSqlServer.setEnabled(false);
+		inputEnderecoSqlServer.setDisabledTextColor(Color.GRAY);
 		panelSqlServerConfig.add(inputEnderecoSqlServer);
 		
 		labelUsuarioSqlServer = new JLabel("Usuário");
@@ -141,6 +172,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputUsuarioSqlServer.setLocation((int)labelUsuarioSqlServer.getLocation().getX(), (int)labelEnderecoSqlServer.getLocation().getY()+labelEnderecoSqlServer.getHeight());
 		inputUsuarioSqlServer.setSize(135, 30);
 		inputUsuarioSqlServer.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputUsuarioSqlServer.setEnabled(false);
+		inputUsuarioSqlServer.setDisabledTextColor(Color.GRAY);
 		panelSqlServerConfig.add(inputUsuarioSqlServer);
 		
 		labelSenhaSqlServer = new JLabel("Senha");
@@ -153,6 +186,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputSenhaSqlServer.setLocation((int)inputUsuarioSqlServer.getLocation().getX()+inputUsuarioSqlServer.getWidth()+10, (int)inputUsuarioSqlServer.getLocation().getY());
 		inputSenhaSqlServer.setSize(135, 30);
 		inputSenhaSqlServer.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputSenhaSqlServer.setEnabled(false);
+		inputSenhaSqlServer.setDisabledTextColor(Color.GRAY);
 		panelSqlServerConfig.add(inputSenhaSqlServer);
 	}
 	
@@ -192,6 +227,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputEnderecoPostgreSql.setLocation((int)labelEnderecoPostgreSql.getLocation().getX(), (int)labelEnderecoPostgreSql.getLocation().getY()+labelEnderecoPostgreSql.getHeight());
 		inputEnderecoPostgreSql.setSize(390, 30);
 		inputEnderecoPostgreSql.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputEnderecoPostgreSql.setEnabled(false);
+		inputEnderecoPostgreSql.setDisabledTextColor(Color.GRAY);
 		panelPostgreSqlConfig.add(inputEnderecoPostgreSql);
 		
 		labelUsuarioPostgreSql = new JLabel("Usuário");
@@ -204,6 +241,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputUsuarioPostgreSql.setLocation((int)labelUsuarioPostgreSql.getLocation().getX(), (int)labelEnderecoPostgreSql.getLocation().getY()+labelEnderecoPostgreSql.getHeight());
 		inputUsuarioPostgreSql.setSize(135, 30);
 		inputUsuarioPostgreSql.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputUsuarioPostgreSql.setEnabled(false);
+		inputUsuarioPostgreSql.setDisabledTextColor(Color.GRAY);
 		panelPostgreSqlConfig.add(inputUsuarioPostgreSql);
 		
 		labelSenhaPostgreSql = new JLabel("Senha");
@@ -216,6 +255,8 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		inputSenhaPostgreSql.setLocation((int)inputUsuarioPostgreSql.getLocation().getX()+inputUsuarioPostgreSql.getWidth()+10, (int)inputUsuarioPostgreSql.getLocation().getY());
 		inputSenhaPostgreSql.setSize(135, 30);
 		inputSenhaPostgreSql.setFont(new java.awt.Font("Verdana", 0, 12));
+		inputSenhaPostgreSql.setEnabled(false);
+		inputSenhaPostgreSql.setDisabledTextColor(Color.GRAY);
 		panelPostgreSqlConfig.add(inputSenhaPostgreSql);
 		
 		buttonSalvar = new JButton("Salvar");
@@ -237,7 +278,46 @@ public class TelaDeConfiguracaoBancoDeDados extends JFrame {
 		labelCopyRigth.setSize(200, 15);
 		labelCopyRigth.setFont(new java.awt.Font("Verdana", 1, 10));
 		panelPostgreSqlConfig.add(labelCopyRigth);
+	}
+	
+	private void bindEvent(){
 		
+		this.radioUsaSqlServerSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               habilitarInputs("sql");
+            }
+        });
+		
+		this.radioUsaSqlServerNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               desabilitarInputs("sql");
+            }
+        });
+		
+		this.radioUsaPostgreSqlSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               habilitarInputs("postgre");
+            }
+        });
+		
+		this.radioUsaPostgreSqlNao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               desabilitarInputs("postgre");
+            }
+        });
+		
+		this.buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               
+            }
+        });
+		
+		this.buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               
+            }
+        });
+
 	}
 
 }
